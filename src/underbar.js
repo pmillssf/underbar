@@ -178,16 +178,30 @@
         var collectionShifts = collection.slice(1, collection.length);
         _.each(collectionShifts, function(element){
         accumlated = iterator(accumlated, element); 
-      })
+      });
 
       } else {
         accumlated = accumulator;
         _.each(collection, function(element){
         accumlated = iterator(accumlated, element); 
-      })
+      });
       }
     } else {
       // work with objects
+      if (arguments.length === 2){
+        var collectionKeys = Object.keys(collection);
+        accumlated = collection[collectionKeys[0]];
+        var collectionShifts = collectionKeys.slice(1, collectionKeys.length);
+        _.each(collectionShifts, function(element){
+        accumlated = iterator(accumlated, collection[element]); 
+      });
+
+      } else {
+        accumlated = accumulator;
+        _.each(collection, function(element){
+        accumlated = iterator(accumlated, element); 
+      });
+      }
 
     }
     return accumlated;
