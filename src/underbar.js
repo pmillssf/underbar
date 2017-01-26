@@ -243,8 +243,20 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (arguments.length < 2){
+      iterator = _.identity;
+    }
+    var output = false;
+    _.each(collection, function(element){
+      var arr = [element];
+      var truthy = _.every(arr, iterator);
+      if (truthy === true){
+        output = true;
+      }
+    });
+    return output;
   };
-
+      
 
   /**
    * OBJECTS
